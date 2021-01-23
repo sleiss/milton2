@@ -144,7 +144,7 @@ public class WebDavProtocol implements HttpExtension, PropertySource {
 		//handlers.add(new PropFindHandler(resourceHandlerHelper, resourceTypeHelper, responseHandler, propertySources));
 		PropFindHandler propFindHandler = new PropFindHandler(resourceHandlerHelper, requestFieldParser, responseHandler, propertyBuilder);
 		handlers.add(propFindHandler);
-		mkColHandler = new MkColHandler(responseHandler, handlerHelper);
+		mkColHandler = new MkColHandler(responseHandler, handlerHelper, resourceHandlerHelper);
 		handlers.add(mkColHandler);
 		propPatchHandler = new PropPatchHandler(resourceHandlerHelper, new DefaultPropPatchParser(), patchSetter, responseHandler, propertyAuthoriser);
 		handlers.add(propPatchHandler);

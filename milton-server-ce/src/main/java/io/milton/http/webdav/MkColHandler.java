@@ -18,11 +18,9 @@
  */
 package io.milton.http.webdav;
 
-import io.milton.http.Handler;
+import io.milton.http.*;
 import io.milton.resource.CollectionResource;
 import io.milton.resource.Resource;
-import io.milton.http.HandlerHelper;
-import io.milton.http.HttpManager;
 import io.milton.resource.MakeCollectionableResource;
 import io.milton.common.Path;
 import io.milton.http.Request.Method;
@@ -31,8 +29,7 @@ import io.milton.http.exceptions.BadRequestException;
 import io.milton.http.exceptions.ConflictException;
 import io.milton.http.exceptions.NotAuthorizedException;
 import io.milton.event.NewFolderEvent;
-import io.milton.http.Request;
-import io.milton.http.Response;
+
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,11 +39,13 @@ public class MkColHandler implements Handler {
 	private static final Logger log = LoggerFactory.getLogger(MkColHandler.class);
 	private final WebDavResponseHandler responseHandler;
 	private final HandlerHelper handlerHelper;
+	private final ResourceHandlerHelper resourceHandlerHelper;
 	private CollectionResourceCreator collectionResourceCreator = new DefaultCollectionResourceCreator();
 
-	public MkColHandler(WebDavResponseHandler responseHandler, HandlerHelper handlerHelper) {
+	public MkColHandler(WebDavResponseHandler responseHandler, HandlerHelper handlerHelper, ResourceHandlerHelper resourceHandlerHelper) {
 		this.responseHandler = responseHandler;
 		this.handlerHelper = handlerHelper;
+		this.resourceHandlerHelper = resourceHandlerHelper;
 	}
 
 	@Override
@@ -73,7 +72,7 @@ public class MkColHandler implements Handler {
 			return;
 		}
 		String host = request.getHostHeader();
-		String finalurl = HttpManager.decodeUrl(request.getAbsolutePath());
+		String finalurl = HttpManager.decodeUrl(resourceHandlerHelper.getUrlAdapter().getUrl(request));
 		String name;
 		if (log.isDebugEnabled()) {
 			log.debug("process request: host: " + host + " url: " + finalurl);
