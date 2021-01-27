@@ -31,10 +31,12 @@ public class LockHandler implements ResourceHandler {
 
     private final WebDavResponseHandler responseHandler;
     private final HandlerHelper handlerHelper;
+    private final ResourceHandlerHelper resourceHandlerHelper;
 
-    public LockHandler(WebDavResponseHandler responseHandler, HandlerHelper handlerHelper) {
+    public LockHandler(WebDavResponseHandler responseHandler, HandlerHelper handlerHelper, ResourceHandlerHelper resourceHandlerHelper) {
         this.responseHandler = responseHandler;
         this.handlerHelper = handlerHelper;
+        this.resourceHandlerHelper = resourceHandlerHelper;
         LockUtils.init();
     }
 
@@ -55,7 +57,7 @@ public class LockHandler implements ResourceHandler {
         }
 
         String host = request.getHostHeader();
-        String url = HttpManager.decodeUrl(request.getAbsolutePath());
+        String url = HttpManager.decodeUrl(resourceHandlerHelper.getUrlAdapter().getUrl(request));
 
         // Find a resource if it exists
         Resource r = manager.getResourceFactory().getResource(host, url);

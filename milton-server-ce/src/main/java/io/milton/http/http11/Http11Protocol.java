@@ -47,7 +47,7 @@ public class Http11Protocol implements HttpExtension{
         handlers.add(new PostHandler(responseHandler, resourceHandlerHelper));
         handlers.add(new DeleteHandler(responseHandler, resourceHandlerHelper, handlerHelper));
 		PutHelper putHelper = new PutHelper();
-        handlers.add(new PutHandler(responseHandler, handlerHelper, putHelper, matchHelper));
+        handlers.add(new PutHandler(responseHandler, handlerHelper, putHelper, matchHelper, resourceHandlerHelper));
     }
 
 	@Override

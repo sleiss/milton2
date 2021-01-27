@@ -48,7 +48,7 @@ public class WebDavLevel2Protocol implements HttpExtension, PropertySource {
         propertyMap.add(new LockDiscoveryPropertyWriter());
 
         handlers = new HashSet<>();
-        handlers.add(new LockHandler(responseHandler, handlerHelper));
+        handlers.add(new LockHandler(responseHandler, handlerHelper, resourceHandlerHelper));
         handlers.add(new UnlockHandler(resourceHandlerHelper, responseHandler));        
     }
 

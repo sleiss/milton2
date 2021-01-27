@@ -24,17 +24,12 @@ import io.milton.common.Path;
 import io.milton.common.RandomFileOutputStream;
 import io.milton.event.NewFolderEvent;
 import io.milton.event.PutEvent;
-import io.milton.http.FileItem;
-import io.milton.http.Handler;
-import io.milton.http.HandlerHelper;
-import io.milton.http.HttpManager;
-import io.milton.http.Range;
-import io.milton.http.Request;
+import io.milton.http.*;
 import io.milton.http.Request.Method;
-import io.milton.http.RequestParseException;
+
 import static io.milton.http.ResourceHandlerHelper.ATT_NAME_FILES;
 import static io.milton.http.ResourceHandlerHelper.ATT_NAME_PARAMS;
-import io.milton.http.Response;
+
 import io.milton.http.Response.Status;
 import io.milton.http.exceptions.BadRequestException;
 import io.milton.http.exceptions.ConflictException;
@@ -70,12 +65,14 @@ public class PutHandler implements Handler {
 	private final HandlerHelper handlerHelper;
 	private final PutHelper putHelper;
 	private final MatchHelper matchHelper;
+	private final ResourceHandlerHelper resourceHandlerHelper;
 
-	public PutHandler(Http11ResponseHandler responseHandler, HandlerHelper handlerHelper, PutHelper putHelper, MatchHelper matchHelper) {
+	public PutHandler(Http11ResponseHandler responseHandler, HandlerHelper handlerHelper, PutHelper putHelper, MatchHelper matchHelper, ResourceHandlerHelper resourceHandlerHelper) {
 		this.responseHandler = responseHandler;
 		this.handlerHelper = handlerHelper;
 		this.putHelper = putHelper;
 		this.matchHelper = matchHelper;
+		this.resourceHandlerHelper = resourceHandlerHelper;
 		checkResponseHandler();
 	}
 
@@ -120,7 +117,7 @@ public class PutHandler implements Handler {
 		}
 
 		String host = request.getHostHeader();
-		String urlToCreateOrUpdate = HttpManager.decodeUrl(request.getAbsolutePath());
+		String urlToCreateOrUpdate = HttpManager.decodeUrl(resourceHandlerHelper.getUrlAdapter().getUrl(request));
 
 		LogUtils.debug(log, "PUT request. Host:", host, " Url:", urlToCreateOrUpdate, " content length header:", request.getContentLengthHeader());
 
@@ -398,7 +395,7 @@ public class PutHandler implements Handler {
 
 	public void processExistingResource(HttpManager manager, Request request, Response response, Resource resource) throws NotAuthorizedException, BadRequestException, ConflictException, NotFoundException {
 		String host = request.getHostHeader();
-		String urlToCreateOrUpdate = HttpManager.decodeUrl(request.getAbsolutePath());
+		String urlToCreateOrUpdate = HttpManager.decodeUrl(resourceHandlerHelper.getUrlAdapter().getUrl(request));
 		log.debug("process request: host: " + host + " url: " + urlToCreateOrUpdate);
 
 		Path path = Path.path(urlToCreateOrUpdate);
