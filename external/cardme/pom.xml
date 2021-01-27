@@ -9,9 +9,9 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-milton-Milton</id>
-            <name>milton-Milton</name>
-            <url>https://api.bintray.com/maven/milton/Milton/cardme/;publish=1</url>
+            <id>nexus-sleiss</id>
+            <name>nexus-sleiss</name>
+            <url>http://nexus.sleiss.me/content/repositories/milton-patched/</url>
         </repository>
     </distributionManagement>
 

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.milton</groupId>
 	<artifactId>milton</artifactId>
-	<version>3.0.0.93</version>
+	<version>3.0.0.93-sleiss-patch-1</version>
 	<packaging>pom</packaging>
 	<name>milton</name>
 	<url>http://milton.io</url>
@@ -12,9 +12,9 @@
 	</scm>
 	<distributionManagement>
 		<repository>
-			<id>bintray-milton-Milton</id>
-			<name>milton-Milton</name>
-			<url>https://api.bintray.com/maven/milton/Milton/milton/;publish=1</url>
+			<id>nexus-sleiss</id>
+			<name>nexus-sleiss</name>
+			<url>http://nexus.sleiss.me/content/repositories/milton-patched/</url>
 		</repository>
 		<snapshotRepository>
 			<uniqueVersion>false</uniqueVersion>
@@ -202,7 +202,7 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
-			<id>bintray-milton-Milton</id>
+			<id>nexus-sleiss</id>
 			<name>bintray</name>
 			<url>https://dl.bintray.com/milton/Milton</url>
 		</repository>

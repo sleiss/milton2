@@ -10,7 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <milton.version>3.0.0.93</milton.version>
+        <milton.version>3.0.0.93-sleiss-patch-1</milton.version>
     </properties>
 
     <build>
@@ -39,7 +39,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <id>bintray-milton-Milton</id>
+            <id>nexus-sleiss</id>
             <name>bintray</name>
             <url>https://dl.bintray.com/milton/Milton</url>
         </repository>
